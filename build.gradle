@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bluepapa32:gradle-watch-plugin:0.1.5'
+    }
+}
+
+apply plugin: 'com.bluepapa32.watch'
+
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 
@@ -23,3 +34,10 @@ task testCheckstyle(type: Test, dependsOn: check) {
 }
 
 testCheckstyle.mustRunAfter check
+
+watch {
+    java {
+        files files('src/main/java')
+        tasks 'testCheckstyle'
+    }
+}
